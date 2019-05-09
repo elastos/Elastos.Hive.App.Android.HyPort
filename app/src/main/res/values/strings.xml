@@ -5,6 +5,8 @@
     <string name="nav_header_title">Elastos Hive</string>
     <string name="nav_header_subtitle">https://www.elastos.org</string>
     <string name="nav_header_desc">Navigation header</string>
+    <string name="action_new_file">New Folder</string>
+    <string name="action_filepaste">File Paste</string>
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Local storage</string>
