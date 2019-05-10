@@ -1,6 +1,7 @@
 package org.elastos.app.hivedemo;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -13,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -21,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -161,7 +164,7 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_newfile) {
             //TODO New folder
-
+            ShowEditDialog();
             return true;
         } else if (id == R.id.action_filepaste) {
             //TODO File Paste
@@ -221,11 +224,37 @@ public class MainActivity extends AppCompatActivity
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 } else {
-                    Toast toast = Toast.makeText(this, "获取权限成功", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
+                    initDate();
+                    initClick();
                 }
             }
         }
+    }
+
+    private void ShowEditDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("New Folder");
+        builder.setIcon(R.drawable.ic_folder);
+        final EditText editText = new EditText(MainActivity.this);
+        editText.setSingleLine(true);
+        editText.setMaxLines(1);
+        builder.setView(editText);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (!editText.getText().toString().equals("")) {
+                    String path = content_filepath.getText().toString() + File.separator + editText.getText().toString();
+                    File file = new File(path);
+                    file.mkdirs();
+
+                    File file1 = new File(content_filepath.getText().toString());
+                    File[] files = file1.listFiles();
+                    fileAdapter = new FileAdapter(MainActivity.this, files);
+                    fileList.setAdapter(fileAdapter);
+                }
+            }
+        });
+        builder.setNegativeButton("取消", null);
+        builder.show();
     }
 }
