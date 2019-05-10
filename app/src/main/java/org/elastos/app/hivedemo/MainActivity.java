@@ -7,7 +7,10 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -28,7 +31,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
 import java.io.File;
+
+;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -36,6 +44,11 @@ public class MainActivity extends AppCompatActivity
 
     private String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE};
+
+    private String[] CAMERA_permissions = {Manifest.permission.CAMERA};
+
+
+    private static SimpleCarrier sSimpleCarrier;
 
     private Toolbar toolbar;
     private ListView fileList;
@@ -79,6 +92,8 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        sSimpleCarrier = SimpleCarrier.getInstance();
 
     }
 
@@ -134,6 +149,10 @@ public class MainActivity extends AppCompatActivity
 
     private void startRequestPermission() {
         ActivityCompat.requestPermissions(this, permissions, 321);
+    }
+
+    private void startRequestPermission_CAMERA() {
+        ActivityCompat.requestPermissions(this, CAMERA_permissions, 654);
     }
 
     @Override
@@ -198,12 +217,25 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_addfriend) {
-
+            AddFriend();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void AddFriend() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int i = ContextCompat.checkSelfPermission(getApplicationContext(), CAMERA_permissions[0]);
+            if (i != PackageManager.PERMISSION_GRANTED) {
+                startRequestPermission_CAMERA();
+            } else {
+                IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
+                integrator.initiateScan();
+            }
+        }
     }
 
 
@@ -228,6 +260,41 @@ public class MainActivity extends AppCompatActivity
                     initClick();
                 }
             }
+        } else if (requestCode == 654) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    Toast toast = Toast.makeText(this, "Access failed, open manually!", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                } else {
+                    IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
+                    integrator.initiateScan();
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Activity回调方法
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (scanResult != null) {
+            String result = scanResult.getContents();
+            if (result != null && !result.isEmpty()) {
+                //TODO Add friend.
+                sSimpleCarrier.AddFriend(result);
+                Toast.makeText(this, "Added successfully!", Toast.LENGTH_LONG).show();
+            }
+            return;
         }
     }
 
@@ -247,10 +314,10 @@ public class MainActivity extends AppCompatActivity
                     File file = new File(path);
                     file.mkdirs();
 
-                    File file1 = new File(content_filepath.getText().toString());
-                    File[] files = file1.listFiles();
+                    File[] files = file.listFiles();
                     fileAdapter = new FileAdapter(MainActivity.this, files);
                     fileList.setAdapter(fileAdapter);
+                    content_filepath.setText(path);
                 }
             }
         });
