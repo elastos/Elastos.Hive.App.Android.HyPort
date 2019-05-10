@@ -1,14 +1,14 @@
 package org.elastos.app.hivedemo;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.Window;
+import android.widget.ImageView;
 
 public class PersonalActivity extends AppCompatActivity {
+
+    private ImageView myaddressqrcode;
+    private static SimpleCarrier simpleCarrier;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +17,14 @@ public class PersonalActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Personal information");
+        simpleCarrier = SimpleCarrier.getInstance();
+        initView();
 
+    }
+
+    private void initView() {
+        myaddressqrcode = findViewById(R.id.myaddressqrcode);
+        myaddressqrcode.setImageBitmap(QRCodeUtils.createQRCodeBitmap(simpleCarrier.MyAddress()));
     }
 
     @Override

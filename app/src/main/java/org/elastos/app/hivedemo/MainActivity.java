@@ -108,7 +108,6 @@ public class MainActivity extends AppCompatActivity
             fileList.setAdapter(fileAdapter);
             BaseFilePath = SDFile.getPath();
             content_filepath.setText(SDFile.getPath());
-            Log.d("MainActivity", BaseFilePath);
         }
 
     }
