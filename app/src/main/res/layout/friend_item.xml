@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:paddingLeft="16dp"
+    android:paddingTop="8dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="8dp">
+
+    <ImageView
+        android:id="@+id/friend_imageView_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/friend_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/friend_imageView_icon"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_toEndOf="@id/friend_imageView_icon"
+        android:layout_toRightOf="@id/friend_imageView_icon"
+        android:maxWidth="250dp"
+        android:singleLine="true"
+        android:text="文件名称"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/friend_textView_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/friend_name"
+        android:layout_alignLeft="@id/friend_name"
+        android:layout_alignBottom="@id/friend_imageView_icon"
+        android:text="文件类型及大小"
+        android:textSize="12sp" />
+
+</RelativeLayout>

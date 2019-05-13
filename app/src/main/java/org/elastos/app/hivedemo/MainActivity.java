@@ -7,8 +7,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -20,7 +18,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -113,6 +110,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initClick() {
+
         fileList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -123,8 +121,11 @@ public class MainActivity extends AppCompatActivity
                     fileList.setAdapter(fileAdapter);
                     content_filepath.setText(f.getPath());
                 } else {
-                    // TODO
-                    Toast.makeText(MainActivity.this, "文件" + f.getName(), Toast.LENGTH_SHORT).show();
+                    // TODO SendFile
+                    Intent intent = new Intent(MainActivity.this, MyFriendsActivity.class);
+                    intent.putExtra("filePath" , f.getPath());
+                    intent.putExtra("type" , 1);
+                    startActivity(intent);
                 }
             }
         });
@@ -211,6 +212,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_myfriends) {
             Intent intent = new Intent(this, MyFriendsActivity.class);
+            intent.putExtra("type" , 0);
             startActivity(intent);
         } else if (id == R.id.nav_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
