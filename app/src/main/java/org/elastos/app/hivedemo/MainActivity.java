@@ -45,7 +45,7 @@ import jahirfiquitiva.libs.fabsmenu.TitleFAB;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private Toolbar toolbar;
-//    private NavigationView navigationView ;
+    //    private NavigationView navigationView ;
     private DrawerLayout drawer;
     private boolean backPressedToExitOnce = false;
     private FABsMenu fabsMenu;
