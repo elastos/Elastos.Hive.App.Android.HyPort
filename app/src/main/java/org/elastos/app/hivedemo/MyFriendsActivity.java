@@ -44,8 +44,8 @@ public class MyFriendsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (friends.get(position).getConnectionStatus() == ConnectionStatus.Connected) {
-                    Log.d("MyFriendsActivity", filePath);
-                    Log.d("MyFriendsActivity", friends.get(position).getUserId());
+
+                    simpleCarrier.sendFile(filePath , friends.get(position).getUserId());
 
                 } else {
                     Toast.makeText(MyFriendsActivity.this, "Your Friend is offline!", Toast.LENGTH_SHORT).show();

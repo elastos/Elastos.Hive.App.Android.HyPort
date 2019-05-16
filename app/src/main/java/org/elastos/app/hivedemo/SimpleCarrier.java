@@ -79,23 +79,26 @@ class SimpleCarrier {
 
     private static String sSendFilePath = null;
 
-    void sendFile(String filePath) {
+    void sendFile(String filePath, String CurrentUserId) {
         try {
-            if (sCurrentUserId == null) {
-                sendShowingMessage("The friend is Offline");
-            }
+            sCurrentUserId = CurrentUserId;
+
 
             sSendFilePath = filePath;
             String fileId = FileTransfer.generateFileId();
             File file = new File(filePath);
-            Log.i(TAG, "sendFile file name=" + file.getName());
-            FileTransferInfo currentFileTransferInfo = new FileTransferInfo(filePath, fileId, file.length());
+            if (file.length() != 0) {
+                Log.i(TAG, "sendFile file name=" + file.getName());
+                FileTransferInfo currentFileTransferInfo = new FileTransferInfo(filePath, fileId, file.length());
 
-            if (sFileTransfer == null) {
-                sFileTransfer = sFileTransferManager.newFileTransfer(sCurrentUserId, currentFileTransferInfo, mTransferHandler);
-                sFileTransfer.connect();
-            } else {
-                sFileTransfer.addFile(currentFileTransferInfo);
+                if (sFileTransfer == null) {
+                    sFileTransfer = sFileTransferManager.newFileTransfer(sCurrentUserId, currentFileTransferInfo, mTransferHandler);
+                    sFileTransfer.connect();
+                } else {
+                    sFileTransfer.addFile(currentFileTransferInfo);
+                }
+            }else{
+                Log.i(TAG, "The File's Lenth = 0");
             }
         } catch (CarrierException e) {
             e.printStackTrace();
