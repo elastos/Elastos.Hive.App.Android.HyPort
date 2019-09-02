@@ -1,0 +1,3 @@
+[submodule "Elastos.NET.Hive.Java.SDK"]
+	path = Elastos.NET.Hive.Java.SDK
+	url = git@github.com:elastos/Elastos.NET.Hive.Java.SDK.git

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/item_pop_menu_ipfs_download"
+        android:orderInCategory="100"
+        android:title="@string/download"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/item_pop_menu_ipfs_delete"
+        android:orderInCategory="100"
+        android:title="@string/delete"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/item_pop_menu_ipfs_more"
+        android:orderInCategory="100"
+        android:title="@string/more"
+        app:showAsAction="ifRoom" />
+</menu>

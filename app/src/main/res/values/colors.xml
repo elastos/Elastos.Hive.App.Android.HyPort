@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#19CBFB</color>
-    <color name="colorPrimaryDark">#19CBFB</color>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="bg">#F0F0F0</color>
+
+    <color name="item_bg">#FFFFFF</color>
+    <color name="spinner_bg">#333244</color>
+
+    <color name="lfile_gray">#cccccc</color>
+    <color name="lfile_lightgray">#dddddd</color>
+    <color name="lfile_white">#fff</color>
 </resources>
