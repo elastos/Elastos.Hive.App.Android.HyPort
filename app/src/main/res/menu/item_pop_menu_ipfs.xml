@@ -12,6 +12,21 @@
         android:title="@string/delete"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/item_pop_menu_ipfs_copy"
+        android:orderInCategory="100"
+        android:title="@string/copy"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/item_pop_menu_ipfs_move"
+        android:orderInCategory="100"
+        android:title="@string/move"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/item_pop_menu_ipfs_rename"
+        android:orderInCategory="100"
+        android:title="@string/rename"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/item_pop_menu_ipfs_more"
         android:orderInCategory="100"
         android:title="@string/more"

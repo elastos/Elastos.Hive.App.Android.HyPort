@@ -1,6 +1,7 @@
 package org.elastos.app.hivedemo.vendor.internal;
 
 import org.elastos.app.hivedemo.FileItem;
+import org.elastos.app.hivedemo.action.DeleteFileAction;
 import org.elastos.app.hivedemo.base.BaseDataCenter;
 import org.elastos.app.hivedemo.utils.FileUtils;
 
@@ -40,6 +41,10 @@ public class InternalStorageDataCenter extends BaseDataCenter {
             arrayList.add(fileItem);
         }
         return arrayList ;
+    }
+
+    public void deleteFile(String filePath){
+        FileUtils.deleteFileAndDir(filePath);
     }
 
 }

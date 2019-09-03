@@ -244,9 +244,21 @@ public class MainPresenter extends BasePresenter {
     public void deleteFile(String absFilePath){
         switch (currentClientType){
             case INTERNAL_STORAGE_TYPE:
+                ((InternalStorageDataCenter)getDataCenter()).deleteFile(absFilePath);
+                refreshData();
                 break;
             case IPFS_TYPE:
                 ((IPFSDataCenter)getDataCenter()).deleteFile(absFilePath);
+                break;
+        }
+    }
+
+    public void renameFile(){
+        switch (currentClientType){
+            case INTERNAL_STORAGE_TYPE:
+
+                break;
+            case IPFS_TYPE:
                 break;
         }
     }

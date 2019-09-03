@@ -30,6 +30,7 @@ import org.elastos.app.hivedemo.config.Config;
 import org.elastos.app.hivedemo.utils.ToastUtils;
 import org.elastos.app.hivedemo.utils.Utils;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
@@ -185,10 +186,34 @@ public class MainFragment extends BaseFragment implements MainPresenter.IView {
                         break;
                     case R.id.item_pop_menu_ipfs_delete:
                         showConfirmDeleteDialog(fileItem.getFileAbsPath());
-
+                        break;
+                    case R.id.item_pop_menu_ipfs_copy:
+                        //TODO
+                        ToastUtils.showShortToastSafe("copy function todo ipfs");
+                        break;
+                    case R.id.item_pop_menu_ipfs_move:
+                        ToastUtils.showShortToastSafe("move function todo ipfs");
+                        break;
+                    case R.id.item_pop_menu_ipfs_rename:
+                        showRenameDialog();
+                        ToastUtils.showShortToastSafe("rename function todo ipfs");
                         break;
                     case R.id.item_pop_menu_ipfs_more:
                         ToastUtils.showShortToastSafe("more function todo ipfs");
+                        break;
+                    case R.id.item_pop_menu_internalstorage_delete:
+                        ToastUtils.showShortToastSafe("delete function todo internal storage");
+                        showConfirmDeleteDialog(fileItem.getFileAbsPath());
+                        break;
+                    case R.id.item_pop_menu_internalstorage_copy:
+                        ToastUtils.showShortToastSafe("copy function todo internal storage");
+                        break;
+                    case R.id.item_pop_menu_internalstorage_move:
+                        ToastUtils.showShortToastSafe("move function todo internal storage");
+                        break;
+                    case R.id.item_pop_menu_internalstorage_rename:
+                        showRenameDialog();
+                        ToastUtils.showShortToastSafe("rename function todo internal storage");
                         break;
                     case R.id.item_pop_menu_internalstorage_more:
                         ToastUtils.showShortToastSafe("more function todo internal storage");
@@ -198,6 +223,52 @@ public class MainFragment extends BaseFragment implements MainPresenter.IView {
             }
         });
         popupMenu.show();
+    }
+
+
+
+    private void rename(String srcPath , String desPath){
+
+        File srcFile = new File(srcPath);
+
+        File desFile = new File(desPath);
+
+        if (desFile.exists()){
+            //show warnning :fileName exist
+        }else{
+            srcFile.renameTo(desFile);
+        }
+
+
+        //if des is exist
+        //cant move
+
+
+    }
+
+    private void showRenameDialog(){
+        new MaterialDialog.Builder(getActivity())
+                .title(R.string.prompt)
+                .content(R.string.input_new_file_name)
+                .positiveText(R.string.ok)
+                .negativeText(R.string.cancel)
+                .input("NewFileName", "", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                    }
+                })
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        ToastUtils.showLongToast(dialog.getInputEditText().getText().toString());
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                    }
+                })
+                .show();
     }
 
     private MaterialDialog getProgressDialog(){

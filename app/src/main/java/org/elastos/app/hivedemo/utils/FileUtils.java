@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
@@ -170,5 +171,116 @@ public class FileUtils {
             fileAbsPath = parentPath+"/"+fileName ;
         }
         return fileAbsPath ;
+    }
+
+    public static boolean deleteFileAndDir(String filePath){
+        File file = new File(filePath);
+        if (!file.exists()){
+            return false ;
+        }
+
+        if (file.isDirectory()){
+            return deleteDirectory(filePath);
+        }
+
+        return deleteFile(filePath);
+    }
+    public static boolean deleteFile(String fileName) {
+        File file = new File(fileName);
+        if (file.exists() && file.isFile()) {
+            if (file.delete()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean deleteDirectory(String dir) {
+        if (!dir.endsWith(File.separator)){
+            dir = dir + File.separator;
+        }
+
+        File dirFile = new File(dir);
+
+        if ((!dirFile.exists()) || (!dirFile.isDirectory())) {
+            return false;
+        }
+        boolean flag = true;
+        File[] files = dirFile.listFiles();
+        for (int i = 0; i < files.length; i++) {
+            if (files[i].isFile()) {
+                flag = FileUtils.deleteFile(files[i].getAbsolutePath());
+                if (!flag)
+                    break;
+            }
+            else if (files[i].isDirectory()) {
+                flag = FileUtils.deleteDirectory(files[i].getAbsolutePath());
+                if (!flag)
+                    break;
+            }
+        }
+        if (!flag) {
+            return false;
+        }
+
+        if (dirFile.delete()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean renameFile(String path, String oldFileName, String newFileName) {
+        if (!oldFileName.equals(newFileName)) {
+            File oldfile = new File(path + File.separator + oldFileName);
+            File newfile = new File(path + File.separator + newFileName);
+            if (newfile.exists()) {
+                return false;
+            } else {
+                oldfile.renameTo(newfile);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean moveFile(String filename, String oldpath, String newpath, boolean cover) {
+        if (!oldpath.equals(newpath)) {
+            File oldfile = new File(oldpath + "/" + filename);
+            File newfile = new File(newpath + "/" + filename);
+            if (newfile.exists()) {
+                if (cover) {
+                    oldfile.renameTo(newfile);
+                    return true ;
+                } else {
+                    return false;
+                }
+            } else {
+                oldfile.renameTo(newfile);
+                return true ;
+            }
+        }
+        return false ;
+    }
+
+    public static void copyFile(String src, String dest) throws IOException {
+        FileInputStream in = new FileInputStream(src);
+        File file = new File(dest);
+        if (!file.exists()){
+            file.createNewFile();
+        }else{}
+        FileOutputStream out = new FileOutputStream(file);
+        int c;
+        byte buffer[] = new byte[1024];
+        while ((c = in.read(buffer)) != -1) {
+            for (int i = 0; i < c; i++){
+                out.write(buffer[i]);
+            }
+        }
+        in.close();
+        out.close();
     }
 }

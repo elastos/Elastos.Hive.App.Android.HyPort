@@ -18,7 +18,8 @@ public class MainAdapter extends BaseQuickAdapter<FileItem,BaseViewHolder> {
         helper.addOnClickListener(R.id.listitem_more_btn);
         if (item.isFolder()){
             helper.setImageResource(R.id.listitem_iv_type,R.mipmap.lfile_folder_style_green);
-            helper.setVisible(R.id.listitem_more_btn, false);
+//            helper.setVisible(R.id.listitem_more_btn, false);
+            helper.setVisible(R.id.listitem_more_btn, true);
         } else {
             helper.setImageResource(R.id.listitem_iv_type,R.mipmap.lfile_file_style_green);
             helper.setVisible(R.id.listitem_more_btn, true);

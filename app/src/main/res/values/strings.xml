@@ -42,10 +42,15 @@
     <string name="download">Download</string>
     <string name="delete">Delete</string>
     <string name="more">More</string>
+    <string name="move">Move</string>
+    <string name="copy">Copy</string>
+    <string name="rename">Rename</string>
 
     <string name="prompt">Prompt</string>
 
     <string name="confirm_delete">Confirm deleting this file</string>
+
+    <string name="input_new_file_name">Please input new file name</string>
 
     <string name="warning_same_file_name">Warning: a file or folder with the same name has been detected</string>
 
