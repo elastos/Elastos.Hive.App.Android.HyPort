@@ -238,4 +238,8 @@ public class IPFSDataCenter extends BaseDataCenter {
         file.deleteItem().get();
     }
 
+    public void renameFile(){
+
+    }
+
 }

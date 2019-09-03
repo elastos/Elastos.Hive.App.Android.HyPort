@@ -27,6 +27,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import org.elastos.app.hivedemo.base.BaseFragment;
 import org.elastos.app.hivedemo.config.ClientType;
 import org.elastos.app.hivedemo.config.Config;
+import org.elastos.app.hivedemo.utils.FileUtils;
 import org.elastos.app.hivedemo.utils.ToastUtils;
 import org.elastos.app.hivedemo.utils.Utils;
 
@@ -195,7 +196,7 @@ public class MainFragment extends BaseFragment implements MainPresenter.IView {
                         ToastUtils.showShortToastSafe("move function todo ipfs");
                         break;
                     case R.id.item_pop_menu_ipfs_rename:
-                        showRenameDialog();
+                        showRenameDialog(fileItem);
                         ToastUtils.showShortToastSafe("rename function todo ipfs");
                         break;
                     case R.id.item_pop_menu_ipfs_more:
@@ -212,7 +213,7 @@ public class MainFragment extends BaseFragment implements MainPresenter.IView {
                         ToastUtils.showShortToastSafe("move function todo internal storage");
                         break;
                     case R.id.item_pop_menu_internalstorage_rename:
-                        showRenameDialog();
+                        showRenameDialog(fileItem);
                         ToastUtils.showShortToastSafe("rename function todo internal storage");
                         break;
                     case R.id.item_pop_menu_internalstorage_more:
@@ -246,7 +247,7 @@ public class MainFragment extends BaseFragment implements MainPresenter.IView {
 
     }
 
-    private void showRenameDialog(){
+    private void showRenameDialog(FileItem fileItem){
         new MaterialDialog.Builder(getActivity())
                 .title(R.string.prompt)
                 .content(R.string.input_new_file_name)
@@ -260,7 +261,8 @@ public class MainFragment extends BaseFragment implements MainPresenter.IView {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        ToastUtils.showLongToast(dialog.getInputEditText().getText().toString());
+                        String newName = dialog.getInputEditText().getText().toString();
+                        presenter.renameFile(FileUtils.getParent(fileItem.getFileAbsPath()),fileItem.getFileName(),newName);
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {

@@ -253,12 +253,14 @@ public class MainPresenter extends BasePresenter {
         }
     }
 
-    public void renameFile(){
+    public void renameFile(String parentPath , String oldName , String newName){
         switch (currentClientType){
             case INTERNAL_STORAGE_TYPE:
-
+                ((InternalStorageDataCenter)getDataCenter()).renameFile(parentPath,oldName,newName);
+                refreshData();
                 break;
             case IPFS_TYPE:
+                ((IPFSDataCenter)getDataCenter()).renameFile();
                 break;
         }
     }

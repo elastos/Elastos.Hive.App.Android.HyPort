@@ -47,4 +47,8 @@ public class InternalStorageDataCenter extends BaseDataCenter {
         FileUtils.deleteFileAndDir(filePath);
     }
 
+    public void renameFile(String path, String oldFileName, String newFileName){
+        FileUtils.renameFile(path,oldFileName,newFileName);
+    }
+
 }
