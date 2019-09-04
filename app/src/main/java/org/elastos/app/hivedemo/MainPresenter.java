@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 
 import org.elastos.app.hivedemo.action.ActionType;
+import org.elastos.app.hivedemo.action.PasteBean;
 import org.elastos.app.hivedemo.base.ActionCallback;
 import org.elastos.app.hivedemo.base.BaseDataCenter;
 import org.elastos.app.hivedemo.base.BasePresenter;
@@ -296,6 +297,44 @@ public class MainPresenter extends BasePresenter {
             }
         }
     };
+
+    public void copyFile(String fileName , String realAbsPath , boolean isFolder , PasteBean.PasteActionType actionType){
+        switch (currentClientType){
+            case INTERNAL_STORAGE_TYPE:
+                ((InternalStorageDataCenter)getDataCenter()).putPasteBean(fileName,realAbsPath , isFolder , actionType);
+                break;
+            case IPFS_TYPE:
+                ((IPFSDataCenter)getDataCenter()).putPasteBean(fileName , realAbsPath , isFolder , actionType);
+                break;
+        }
+        iView.showPasteButton();
+    }
+
+    public void pasteFile(){
+        switch (currentClientType){
+            case INTERNAL_STORAGE_TYPE:
+                PasteBean pasteBean = ((InternalStorageDataCenter)getDataCenter()).getPasteBean();
+                pasteBean.setDestAbsPath(FileUtils.appendParentPath(getCurrentPath(),pasteBean.getFileName()));
+                ((InternalStorageDataCenter)getDataCenter()).pasteFile(pasteBean);
+                refreshData();
+                break;
+            case IPFS_TYPE:
+                break;
+        }
+    }
+
+    public void clearPastBean(){
+        switch (currentClientType){
+            case INTERNAL_STORAGE_TYPE:
+                ((InternalStorageDataCenter)getDataCenter()).clearPastBean();
+                break;
+            case IPFS_TYPE:
+                ((IPFSDataCenter)getDataCenter()).clearPastBean();
+                break;
+        }
+        iView.hidePasteButton();
+    }
+
     public interface IView{
         void refreshListView(ArrayList<FileItem> items);
         void refreshTitleView(String path);
@@ -309,5 +348,9 @@ public class MainPresenter extends BasePresenter {
         void showSameFileDialog();
 
         void showConnectionWrong();
+
+        void showPasteButton();
+
+        void hidePasteButton();
     }
 }

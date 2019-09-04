@@ -112,18 +112,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
+                MainPresenter presenter = ((MainFragment)getFragmentAtFrame()).presenter;
                 int id = menuItem.getItemId();
                 switch (id){
                     case R.id.action_more:
                         ToastUtils.showShortToastSafe("TODO more");
                         break;
                     case R.id.action_back_home:
-                        MainPresenter presenter = ((MainFragment)getFragmentAtFrame()).presenter;
                         ClientType clientType = presenter.getCurrentClientType();
                         String defaultPath = Config.getDefaultPath(clientType) ;
                         presenter.setCurrentPath(defaultPath);
                         presenter.refreshData();
                         ToastUtils.showShortToastSafe("home...");
+                        break;
+                    case R.id.action_paste:
+                        presenter.pasteFile();
+                        presenter.clearPastBean();
                         break;
                 }
                 return true;
@@ -135,11 +139,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         initialiseFab();
     }
 
+    public void showPasteButton(){
+        //current paste button index 0
+        toolbar.getMenu().getItem(0).setVisible(true);
+    }
+
+    public void hidePasteButton(){
+        //current paste button index 0
+        toolbar.getMenu().getItem(0).setVisible(false);
+    }
+
+    public void hideHomeButton(){
+        //current home button index 1
+        toolbar.getMenu().getItem(1).setVisible(false);
+    }
+
+    public void showHomeButton(){
+        //current home button index 1
+        toolbar.getMenu().getItem(1).setVisible(true);
+    }
+
     @SuppressLint("RestrictedApi")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
         fabsMenu.collapse();
+        ((MainFragment)fragment).presenter.clearPastBean();
+
         switch (id){
             case R.id.nav_internalstorage:
                 removeUploadFileTitleFAB();

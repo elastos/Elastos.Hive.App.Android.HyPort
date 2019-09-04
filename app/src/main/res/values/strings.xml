@@ -39,6 +39,7 @@
     <string name="name">Name</string>
     <string name="detail">Detail</string>
 
+    <string name="home">Home</string>
     <string name="download">Download</string>
     <string name="delete">Delete</string>
     <string name="more">More</string>
@@ -46,6 +47,7 @@
     <string name="copy">Copy</string>
     <string name="cut">Cut</string>
     <string name="rename">Rename</string>
+    <string name="paste">Paste</string>
 
     <string name="prompt">Prompt</string>
 

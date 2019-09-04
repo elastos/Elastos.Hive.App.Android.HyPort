@@ -24,6 +24,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
+import org.elastos.app.hivedemo.action.PasteBean;
 import org.elastos.app.hivedemo.base.BaseFragment;
 import org.elastos.app.hivedemo.config.ClientType;
 import org.elastos.app.hivedemo.config.Config;
@@ -190,6 +191,7 @@ public class MainFragment extends BaseFragment implements MainPresenter.IView {
                         break;
                     case R.id.item_pop_menu_ipfs_copy:
                         //TODO
+                        presenter.copyFile(fileItem.getFileName(),fileItem.getFileAbsPath(), fileItem.isFolder() , PasteBean.PasteActionType.ACTION_COPY);
                         ToastUtils.showShortToastSafe("copy function todo ipfs");
                         break;
                     case R.id.item_pop_menu_ipfs_move:
@@ -207,6 +209,7 @@ public class MainFragment extends BaseFragment implements MainPresenter.IView {
                         showConfirmDeleteDialog(fileItem.getFileAbsPath());
                         break;
                     case R.id.item_pop_menu_internalstorage_copy:
+                        presenter.copyFile(fileItem.getFileName(),fileItem.getFileAbsPath(), fileItem.isFolder() , PasteBean.PasteActionType.ACTION_COPY);
                         ToastUtils.showShortToastSafe("copy function todo internal storage");
                         break;
                     case R.id.item_pop_menu_internalstorage_move:
@@ -224,27 +227,6 @@ public class MainFragment extends BaseFragment implements MainPresenter.IView {
             }
         });
         popupMenu.show();
-    }
-
-
-
-    private void rename(String srcPath , String desPath){
-
-        File srcFile = new File(srcPath);
-
-        File desFile = new File(desPath);
-
-        if (desFile.exists()){
-            //show warnning :fileName exist
-        }else{
-            srcFile.renameTo(desFile);
-        }
-
-
-        //if des is exist
-        //cant move
-
-
     }
 
     private void showRenameDialog(FileItem fileItem){
@@ -380,5 +362,15 @@ public class MainFragment extends BaseFragment implements MainPresenter.IView {
     public void showConnectionWrong() {
         showOneButtonDialog(R.string.connect_error);
 //        ToastUtils.showShortToastSafe(R.string.connect_error);
+    }
+
+    @Override
+    public void showPasteButton() {
+        ((MainActivity)getActivity()).showPasteButton();
+    }
+
+    @Override
+    public void hidePasteButton() {
+        ((MainActivity)getActivity()).hidePasteButton();
     }
 }

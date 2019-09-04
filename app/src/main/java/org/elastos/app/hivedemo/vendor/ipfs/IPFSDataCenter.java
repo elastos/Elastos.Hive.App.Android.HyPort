@@ -3,6 +3,7 @@ package org.elastos.app.hivedemo.vendor.ipfs;
 import android.content.Context;
 
 import org.elastos.app.hivedemo.action.MoveFileAction;
+import org.elastos.app.hivedemo.action.PasteBean;
 import org.elastos.hive.Children;
 import org.elastos.hive.Client;
 import org.elastos.hive.Directory;
@@ -47,6 +48,9 @@ public class IPFSDataCenter extends BaseDataCenter {
     private ActionCallback actionCallback ;
 
     private Context context ;
+
+//    private String pastePath = "" ;
+    private PasteBean pasteBean = null ;
     public IPFSDataCenter(Context context , ActionCallback actionCallback){
         this.context = context ;
         this.actionCallback = actionCallback ;
@@ -273,6 +277,22 @@ public class IPFSDataCenter extends BaseDataCenter {
 
     public void doCopyFile(String oldAbsPath , String desAbsPath,boolean isFolder){
 
+    }
+
+    public void putPasteBean(String fileName , String realPath , boolean isFolder , PasteBean.PasteActionType actionType){
+        pasteBean = new PasteBean();
+        pasteBean.setActionType(actionType);
+        pasteBean.setFileName(fileName);
+        pasteBean.setRealAbsPath(realPath);
+        pasteBean.setFolder(isFolder);
+    }
+
+    public PasteBean getPasteBean(){
+        return pasteBean ;
+    }
+
+    public void clearPastBean(){
+        pasteBean = null ;
     }
 
 }
