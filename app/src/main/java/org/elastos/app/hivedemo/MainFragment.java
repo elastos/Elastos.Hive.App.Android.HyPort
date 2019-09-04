@@ -262,7 +262,7 @@ public class MainFragment extends BaseFragment implements MainPresenter.IView {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         String newName = dialog.getInputEditText().getText().toString();
-                        presenter.renameFile(FileUtils.getParent(fileItem.getFileAbsPath()),fileItem.getFileName(),newName);
+                        presenter.renameFile(FileUtils.getParent(fileItem.getFileAbsPath()),fileItem.getFileName(),newName , fileItem.isFolder());
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {

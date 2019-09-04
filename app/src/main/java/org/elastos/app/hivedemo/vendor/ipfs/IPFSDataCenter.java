@@ -2,6 +2,7 @@ package org.elastos.app.hivedemo.vendor.ipfs;
 
 import android.content.Context;
 
+import org.elastos.app.hivedemo.action.MoveFileAction;
 import org.elastos.hive.Children;
 import org.elastos.hive.Client;
 import org.elastos.hive.Directory;
@@ -166,6 +167,11 @@ public class IPFSDataCenter extends BaseDataCenter {
         return file ;
     }
 
+    public Directory doGetDirectory(String path) throws ExecutionException, InterruptedException {
+        Directory directory = getDefaultDrive().getDirectory(path).get();
+        return directory;
+    }
+
 
     public void createFile(String fileAbsPath){
         new CreateFileAction(this, actionCallback , fileAbsPath).execute();
@@ -238,7 +244,34 @@ public class IPFSDataCenter extends BaseDataCenter {
         file.deleteItem().get();
     }
 
-    public void renameFile(){
+    public void renameFile(String parentPath , String oldName , String newName , boolean isFolder){
+        moveFile(FileUtils.appendParentPath(parentPath,oldName),FileUtils.appendParentPath(parentPath,newName),isFolder);
+
+    }
+
+    public void moveFile(String oldAbsPath , String newAbsPath , boolean isFolder) {
+       new MoveFileAction(this,actionCallback,oldAbsPath,newAbsPath , isFolder).execute();
+    }
+
+
+
+    public void doMoveFile(String oldAbsPath , String newAbsPath , boolean isFolder) throws ExecutionException, InterruptedException {
+        if (isFolder){
+            Directory directory = doGetDirectory(oldAbsPath);
+            directory.moveTo(newAbsPath).get();
+        }else {
+            File file = doGetFile(oldAbsPath);
+            file.moveTo(newAbsPath).get();
+        }
+
+    }
+
+    public void copyFile(String oldAbsPath , String desAbsPath , boolean isFolder){
+
+
+    }
+
+    public void doCopyFile(String oldAbsPath , String desAbsPath,boolean isFolder){
 
     }
 

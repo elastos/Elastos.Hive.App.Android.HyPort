@@ -67,6 +67,7 @@ public class MainPresenter extends BasePresenter {
                                 case ACTION_CREATE_File:
                                 case ACTION_UPLOAD_FILE:
                                 case ACTION_DELETE_FILE:
+                                case ACTION_MOVE_FILE:
                                     refreshData();
                                     break;
                             }
@@ -253,14 +254,14 @@ public class MainPresenter extends BasePresenter {
         }
     }
 
-    public void renameFile(String parentPath , String oldName , String newName){
+    public void renameFile(String parentPath , String oldName , String newName , boolean isFolder){
         switch (currentClientType){
             case INTERNAL_STORAGE_TYPE:
                 ((InternalStorageDataCenter)getDataCenter()).renameFile(parentPath,oldName,newName);
                 refreshData();
                 break;
             case IPFS_TYPE:
-                ((IPFSDataCenter)getDataCenter()).renameFile();
+                ((IPFSDataCenter)getDataCenter()).renameFile(parentPath,oldName,newName,isFolder);
                 break;
         }
     }

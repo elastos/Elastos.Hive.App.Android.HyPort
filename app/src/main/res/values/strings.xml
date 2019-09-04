@@ -44,6 +44,7 @@
     <string name="more">More</string>
     <string name="move">Move</string>
     <string name="copy">Copy</string>
+    <string name="cut">Cut</string>
     <string name="rename">Rename</string>
 
     <string name="prompt">Prompt</string>

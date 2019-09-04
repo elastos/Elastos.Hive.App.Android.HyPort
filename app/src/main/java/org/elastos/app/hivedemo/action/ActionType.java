@@ -10,5 +10,6 @@ public enum ActionType {
     ACTION_UPLOAD_FILE ,
     ACTION_DOWNLOAD_FILE ,
     ACTION_DELETE_FILE ,
+    ACTION_MOVE_FILE
 
 }
