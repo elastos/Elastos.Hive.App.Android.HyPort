@@ -2,6 +2,7 @@ package org.elastos.app.hivedemo.vendor.ipfs;
 
 import android.content.Context;
 
+import org.elastos.app.hivedemo.action.CopyFileAction;
 import org.elastos.app.hivedemo.action.MoveFileAction;
 import org.elastos.app.hivedemo.action.PasteBean;
 import org.elastos.hive.Children;
@@ -267,16 +268,20 @@ public class IPFSDataCenter extends BaseDataCenter {
             File file = doGetFile(oldAbsPath);
             file.moveTo(newAbsPath).get();
         }
-
     }
 
-    public void copyFile(String oldAbsPath , String desAbsPath , boolean isFolder){
-
-
+    public void copyFile(String oldAbsPath , String destParentPath , boolean isFolder){
+        new CopyFileAction(this,actionCallback,oldAbsPath,destParentPath,isFolder).execute();
     }
 
-    public void doCopyFile(String oldAbsPath , String desAbsPath,boolean isFolder){
-
+    public void doCopyFile(String oldAbsPath , String desParentPath,boolean isFolder) throws ExecutionException, InterruptedException {
+        if (isFolder){
+            Directory directory = doGetDirectory(oldAbsPath);
+            directory.copyTo(desParentPath).get();
+        }else {
+            File file = doGetFile(oldAbsPath);
+            file.copyTo(desParentPath).get();
+        }
     }
 
     public void putPasteBean(String fileName , String realPath , boolean isFolder , PasteBean.PasteActionType actionType){
@@ -295,4 +300,17 @@ public class IPFSDataCenter extends BaseDataCenter {
         pasteBean = null ;
     }
 
+    public void pasteFile(PasteBean pasteBean){
+        String realAbsPath = pasteBean.getRealAbsPath();
+        String destParentPath = pasteBean.getDestParentPath();
+        boolean isFolder = pasteBean.isFolder();
+        PasteBean.PasteActionType actionType = pasteBean.getActionType();
+        switch (actionType){
+            case ACTION_CUT:
+                break;
+            case ACTION_COPY:
+                copyFile(realAbsPath,destParentPath,isFolder);
+                break;
+        }
+    }
 }

@@ -69,6 +69,7 @@ public class MainPresenter extends BasePresenter {
                                 case ACTION_UPLOAD_FILE:
                                 case ACTION_DELETE_FILE:
                                 case ACTION_MOVE_FILE:
+                                case ACTION_COPY_FILE:
                                     refreshData();
                                     break;
                             }
@@ -313,12 +314,15 @@ public class MainPresenter extends BasePresenter {
     public void pasteFile(){
         switch (currentClientType){
             case INTERNAL_STORAGE_TYPE:
-                PasteBean pasteBean = ((InternalStorageDataCenter)getDataCenter()).getPasteBean();
-                pasteBean.setDestAbsPath(FileUtils.appendParentPath(getCurrentPath(),pasteBean.getFileName()));
-                ((InternalStorageDataCenter)getDataCenter()).pasteFile(pasteBean);
+                PasteBean internalStore_pasteBean = ((InternalStorageDataCenter)getDataCenter()).getPasteBean();
+                internalStore_pasteBean.setDestAbsPath(FileUtils.appendParentPath(getCurrentPath(),internalStore_pasteBean.getFileName()));
+                ((InternalStorageDataCenter)getDataCenter()).pasteFile(internalStore_pasteBean);
                 refreshData();
                 break;
             case IPFS_TYPE:
+                PasteBean ipfs_pasteBean = ((IPFSDataCenter)getDataCenter()).getPasteBean();
+                ipfs_pasteBean.setDestParentPath(getCurrentPath());
+                ((IPFSDataCenter)getDataCenter()).pasteFile(ipfs_pasteBean);
                 break;
         }
     }

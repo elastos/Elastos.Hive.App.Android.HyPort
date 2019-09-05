@@ -8,6 +8,7 @@ public class PasteBean {
 
     private String realAbsPath;
     private String destAbsPath;
+    private String destParentPath;
     private String fileName ;
     private boolean isFolder ;
     private PasteActionType actionType ;
@@ -53,5 +54,13 @@ public class PasteBean {
 
     public void setFolder(boolean folder) {
         isFolder = folder;
+    }
+
+    public String getDestParentPath() {
+        return destParentPath;
+    }
+
+    public void setDestParentPath(String destParentPath) {
+        this.destParentPath = destParentPath;
     }
 }
