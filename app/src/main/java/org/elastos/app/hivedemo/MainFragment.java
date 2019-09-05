@@ -190,34 +190,28 @@ public class MainFragment extends BaseFragment implements MainPresenter.IView {
                         showConfirmDeleteDialog(fileItem.getFileAbsPath());
                         break;
                     case R.id.item_pop_menu_ipfs_copy:
-                        //TODO
-                        presenter.copyFile(fileItem.getFileName(),fileItem.getFileAbsPath(), fileItem.isFolder() , PasteBean.PasteActionType.ACTION_COPY);
-                        ToastUtils.showShortToastSafe("copy function todo ipfs");
+                        presenter.putPasteBean(fileItem.getFileName(),fileItem.getFileAbsPath(), fileItem.isFolder() , PasteBean.PasteActionType.ACTION_COPY);
                         break;
                     case R.id.item_pop_menu_ipfs_move:
-                        ToastUtils.showShortToastSafe("move function todo ipfs");
+                        presenter.putPasteBean(fileItem.getFileName(),fileItem.getFileAbsPath(), fileItem.isFolder() , PasteBean.PasteActionType.ACTION_CUT);
                         break;
                     case R.id.item_pop_menu_ipfs_rename:
                         showRenameDialog(fileItem);
-                        ToastUtils.showShortToastSafe("rename function todo ipfs");
                         break;
                     case R.id.item_pop_menu_ipfs_more:
                         ToastUtils.showShortToastSafe("more function todo ipfs");
                         break;
                     case R.id.item_pop_menu_internalstorage_delete:
-                        ToastUtils.showShortToastSafe("delete function todo internal storage");
                         showConfirmDeleteDialog(fileItem.getFileAbsPath());
                         break;
                     case R.id.item_pop_menu_internalstorage_copy:
-                        presenter.copyFile(fileItem.getFileName(),fileItem.getFileAbsPath(), fileItem.isFolder() , PasteBean.PasteActionType.ACTION_COPY);
-                        ToastUtils.showShortToastSafe("copy function todo internal storage");
+                        presenter.putPasteBean(fileItem.getFileName(),fileItem.getFileAbsPath(), fileItem.isFolder() , PasteBean.PasteActionType.ACTION_COPY);
                         break;
                     case R.id.item_pop_menu_internalstorage_move:
-                        ToastUtils.showShortToastSafe("move function todo internal storage");
+                        presenter.putPasteBean(fileItem.getFileName(),fileItem.getFileAbsPath(), fileItem.isFolder() , PasteBean.PasteActionType.ACTION_CUT);
                         break;
                     case R.id.item_pop_menu_internalstorage_rename:
                         showRenameDialog(fileItem);
-                        ToastUtils.showShortToastSafe("rename function todo internal storage");
                         break;
                     case R.id.item_pop_menu_internalstorage_more:
                         ToastUtils.showShortToastSafe("more function todo internal storage");

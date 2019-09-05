@@ -299,7 +299,7 @@ public class MainPresenter extends BasePresenter {
         }
     };
 
-    public void copyFile(String fileName , String realAbsPath , boolean isFolder , PasteBean.PasteActionType actionType){
+    public void putPasteBean(String fileName , String realAbsPath , boolean isFolder , PasteBean.PasteActionType actionType){
         switch (currentClientType){
             case INTERNAL_STORAGE_TYPE:
                 ((InternalStorageDataCenter)getDataCenter()).putPasteBean(fileName,realAbsPath , isFolder , actionType);
@@ -321,6 +321,7 @@ public class MainPresenter extends BasePresenter {
                 break;
             case IPFS_TYPE:
                 PasteBean ipfs_pasteBean = ((IPFSDataCenter)getDataCenter()).getPasteBean();
+                ipfs_pasteBean.setDestAbsPath(FileUtils.appendParentPath(getCurrentPath(),ipfs_pasteBean.getFileName()));
                 ipfs_pasteBean.setDestParentPath(getCurrentPath());
                 ((IPFSDataCenter)getDataCenter()).pasteFile(ipfs_pasteBean);
                 break;

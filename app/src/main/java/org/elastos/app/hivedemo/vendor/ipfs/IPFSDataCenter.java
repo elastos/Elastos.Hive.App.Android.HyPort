@@ -123,12 +123,9 @@ public class IPFSDataCenter extends BaseDataCenter {
     }
 
     public void getChildrenAndInfo(){
-
-
     }
 
     public void dogetChildrenAndInfo(ArrayList<FileItem> fileItems){
-
     }
 
 
@@ -258,8 +255,6 @@ public class IPFSDataCenter extends BaseDataCenter {
        new MoveFileAction(this,actionCallback,oldAbsPath,newAbsPath , isFolder).execute();
     }
 
-
-
     public void doMoveFile(String oldAbsPath , String newAbsPath , boolean isFolder) throws ExecutionException, InterruptedException {
         if (isFolder){
             Directory directory = doGetDirectory(oldAbsPath);
@@ -302,11 +297,13 @@ public class IPFSDataCenter extends BaseDataCenter {
 
     public void pasteFile(PasteBean pasteBean){
         String realAbsPath = pasteBean.getRealAbsPath();
+        String destAbsPath = pasteBean.getDestAbsPath();
         String destParentPath = pasteBean.getDestParentPath();
         boolean isFolder = pasteBean.isFolder();
         PasteBean.PasteActionType actionType = pasteBean.getActionType();
         switch (actionType){
             case ACTION_CUT:
+                moveFile(realAbsPath,destAbsPath,isFolder);
                 break;
             case ACTION_COPY:
                 copyFile(realAbsPath,destParentPath,isFolder);

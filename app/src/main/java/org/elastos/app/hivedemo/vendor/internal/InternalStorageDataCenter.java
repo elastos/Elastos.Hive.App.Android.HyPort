@@ -72,10 +72,14 @@ public class InternalStorageDataCenter extends BaseDataCenter {
     public void pasteFile(PasteBean pasteBean){
         String realAbsPath = pasteBean.getRealAbsPath();
         String destAbsPath = pasteBean.getDestAbsPath();
+        String fileName = pasteBean.getFileName();
         boolean isFolder = pasteBean.isFolder();
         PasteBean.PasteActionType actionType = pasteBean.getActionType();
         switch (actionType){
             case ACTION_CUT:
+                String realParentPath = FileUtils.getParent(realAbsPath);
+                String destParentPath = FileUtils.getParent(destAbsPath);
+                doMoveFile(fileName,realParentPath,destParentPath);
                 break;
             case ACTION_COPY:
                 try {
@@ -93,5 +97,9 @@ public class InternalStorageDataCenter extends BaseDataCenter {
         }else{
             FileUtils.copyFile(realAbsPath,destAbsPath);
         }
+    }
+
+    public void doMoveFile(String fileName , String realParentPath , String destParentPath){
+        FileUtils.moveFile(fileName,realParentPath,destParentPath ,false);
     }
 }
