@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fabSize="mini"
-            fab:fab_title="newFolder"
+            fab:fab_title="New Folder"
             fab:srcCompat="@mipmap/folder_fab" />
 
 
@@ -37,10 +37,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fabSize="mini"
-            fab:fab_title="newFile"
+            fab:fab_title="New File"
             fab:srcCompat="@mipmap/file_fab" />
 
 
     </jahirfiquitiva.libs.fabsmenu.FABsMenu>
 
 </jahirfiquitiva.libs.fabsmenu.FABsMenuLayout>
+

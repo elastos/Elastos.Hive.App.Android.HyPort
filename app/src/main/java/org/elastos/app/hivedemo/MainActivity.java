@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void initView() {
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Local storage");
+        toolbar.setTitle("Native Storage");
 
         toolbar.inflateMenu(R.menu.main);
 

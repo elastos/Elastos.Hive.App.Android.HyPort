@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">Elastos Hive</string>
+    <string name="app_name">Hyport</string>
 
-    <string name="nav_header_title">Elastos Hive</string>
+    <string name="nav_header_title">Hyport</string>
     <string name="nav_header_subtitle">https://www.elastos.org</string>
     <string name="nav_header_desc">Navigation header</string>
 
-    <string name="internalstorage">Internal storage</string>
+    <string name="internalstorage">Native</string>
     <string name="onedrive">OneDrive</string>
     <string name="ipfs">IPFS</string>
 
